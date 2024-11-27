@@ -2,10 +2,10 @@
 
 ## Phase 1: Initial Setup & Infrastructure
 - [X] Create GitHub repository for the project
-- [ ] Set up basic project structure
-  - [ ] Create `requirements.txt` with initial dependencies (Python, Jinja2, YAML)
-  - [ ] Set up directory structure (`prompts/`, `outputs/`, `src/`)
-  - [ ] Create initial README.md with project overview
+- [X] Set up basic project structure
+  - [X] Create `requirements.txt` with initial dependencies (Python, Jinja2, YAML)
+  - [X] Set up directory structure (`prompts/`, `outputs/`, `src/`)
+  - [X] Create initial README.md with project overview
 
 ## Phase 2: Colab Setup Notebook
 - [ ] Create main Colab notebook
