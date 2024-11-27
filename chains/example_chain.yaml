@@ -5,17 +5,13 @@ input_variables:
   - tone
 steps:
   - name: "initial_analysis"
-    prompt: "analyze_text.yaml"
-    model:
-      provider: "anthropic"
-      temperature: 0.1
+    prompt: "analyze_text.txt"
+    model: "anthropic"
     output_key: "analysis"
     
   - name: "generate_summary"
-    prompt: "summarize.yaml"
-    model:
-      provider: "anthropic"
-      temperature: 0.2
+    prompt: "summarize.txt"
+    model: "anthropic"
     output_key: "summary"
     template_vars:
       analysis: "${analysis}"

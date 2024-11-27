@@ -16,7 +16,7 @@ class ChainManager:
     ):
         self.chains_dir = Path(chains_dir)
         self.debug = debug
-        self.prompt_manager = PromptManager(prompts_dir=prompts_dir, debug=debug)
+        self.prompt_manager = PromptManager(prompts_dir=prompts_dir)
         self.llm_manager = LLMAPIManager()
         
     def load_chain(self, chain_file: str) -> Dict[str, Any]:
@@ -85,9 +85,8 @@ class ChainManager:
             )
             
             # Execute LLM call
-            model_config = step['model']
             response = self.llm_manager.generate(
-                model_config['provider'],
+                step['model'],
                 prompt_result
             )
             
@@ -100,25 +99,45 @@ class ChainManager:
         return context
 
 def main():
-    # Example usage
+    print("\n=== Testing Chain Manager ===")
+    
+    # Initialize chain manager with debug mode
+    print("\n1. Initializing Chain Manager...")
     chain_manager = ChainManager(debug=True)
     
+    # Register the Anthropic provider
+    print("\n2. Registering Anthropic provider...")
+    from llm_api import AnthropicProvider
+    chain_manager.llm_manager.register_provider("anthropic", AnthropicProvider(debug=True))
+    
+    # Prepare test input
+    print("\n3. Preparing test input...")
     input_vars = {
-        "text": "The quick brown fox jumps over the lazy dog.",
+        "text": """
+        The technology industry has seen remarkable growth in artificial intelligence 
+        applications over the past decade, transforming how we work and live.
+        """,
         "tone": "professional"
     }
+    print(f"Input variables: {json.dumps(input_vars, indent=2)}")
     
+    # Execute chain
+    print("\n4. Executing chain...")
     try:
         results = chain_manager.execute_chain(
             "example_chain.yaml",
             input_vars
         )
         
-        print("\nChain execution results:")
-        print(json.dumps(results, indent=2))
+        print("\n=== Chain Execution Results ===")
+        print("\nAnalysis:")
+        print(results['analysis'])
+        print("\nSummary:")
+        print(results['summary'])
         
     except Exception as e:
-        print(f"Error executing chain: {str(e)}")
+        print(f"\n❌ Error executing chain: {str(e)}")
+        raise
 
 if __name__ == "__main__":
     main() 

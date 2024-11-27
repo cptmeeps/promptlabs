@@ -1,0 +1,10 @@
+- name: system_prompt
+  role: system
+  content: You are a professional summarizer. Create summaries that match the requested tone.
+
+- name: user_prompt
+  role: user
+  content: |
+    Based on this analysis:
+    {{ analysis }}    
+    Create a {{ desired_tone }} summary of the original text.
