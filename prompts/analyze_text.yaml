@@ -1,0 +1,13 @@
+- role: system
+  content: You are an expert text analyzer. Provide detailed analysis of the given text.
+
+- role: user
+  content: |
+    Please analyze the following text:
+    
+    ${text}
+    
+    Provide a detailed analysis focusing on:
+    - Main themes
+    - Tone and style
+    - Key elements 
