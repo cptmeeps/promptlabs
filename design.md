@@ -2,27 +2,47 @@
 
 ## Overview
 
-This project aims to develop a Colab-based tool that leverages Google Drive for creating prompts and interacting with various Large Language Model (LLM) APIs. The tool will facilitate seamless prompt management and LLM API calls, enabling users to efficiently generate and modify prompts stored in text files.
+This project aims to develop a modular Python-based tool that leverages Google Drive for creating prompts and interacting with various Large Language Model (LLM) APIs. The tool consists of core Python modules for functionality and Colab notebooks for user interaction.
 
 ## Objectives
 
-- **Colab Setup Script**: Provide a Colab notebook that automates the setup process, including creating necessary folders in Google Drive and cloning source code from GitHub.
-- **LLM API Interface**: Develop an interface within the Colab environment to interact with different LLM APIs.
-- **Prompt Management**: Utilize text files containing YAML-formatted strings with Jinja templates for dynamic value insertion.
-- **Future Expansion**: Design the system to accommodate prompt chaining and additional features in future iterations.
+- **Core Python Modules**: Develop standalone Python modules for setup, prompt management, and LLM API interactions
+- **Colab Interface**: Provide Colab notebooks that import and utilize the core modules
+- **Prompt Management**: Utilize text files containing YAML-formatted strings with Jinja templates for dynamic value insertion
+- **Future Expansion**: Design the system to accommodate prompt chaining and additional features in future iterations
 
 ## System Architecture
 
-### 1. Colab Setup Notebook
+### 1. Core Python Modules
 
-- **Purpose**: Streamlines the initial setup by automating environment configuration.
-- **Features**:
-  - Mounts Google Drive.
-  - Creates required directories (e.g., `prompts/`, `outputs/`).
-  - Clones or updates source code from a specified GitHub repository.
-  - Installs necessary Python packages and dependencies.
+- **setup.py**:
+  - Handles environment configuration
+  - Manages Google Drive mounting and directory creation
+  - Validates environment and dependencies
 
-### 2. Prompt Storage and Management
+- **prompt_manager.py**:
+  - Implements prompt storage and retrieval
+  - Handles YAML parsing and template rendering
+  - Manages prompt versioning and validation
+
+- **llm_api.py**:
+  - Provides unified interface for LLM API interactions
+  - Handles authentication and request formatting
+  - Manages response processing and error handling
+
+### 2. Colab Notebooks
+
+- **setup.ipynb**:
+  - Imports and utilizes setup.py
+  - Provides interactive interface for initial configuration
+  - Guides users through environment setup
+
+- **main.ipynb**:
+  - Primary user interface for the tool
+  - Imports core modules for functionality
+  - Provides interactive cells for prompt management and API interactions
+
+### 3. Prompt Storage and Management
 
 - **Prompt Files**:
   - Stored as text files in Google Drive.
@@ -33,17 +53,6 @@ This project aims to develop a Colab-based tool that leverages Google Drive for 
   - Prompts are rendered within the Colab environment before being sent to the LLM APIs.
   - Supports insertion of variables and parameters at runtime.
 
-### 3. LLM API Interface
-
-- **API Integration**:
-  - Provides a unified interface to interact with multiple LLM APIs (e.g., OpenAI, Hugging Face).
-  - Handles API authentication and request formatting.
-
-- **Functionality**:
-  - Sends rendered prompts to selected LLMs.
-  - Receives and displays responses within the Colab notebook.
-  - Logs interactions and responses for auditing and analysis.
-
 ### 4. Modular Design for Future Features
 
 - **Extensibility**:
@@ -52,32 +61,30 @@ This project aims to develop a Colab-based tool that leverages Google Drive for 
 
 ## Technology Stack
 
-- **Google Colab**: Primary development and execution environment.
-- **Google Drive**: Storage for prompts, outputs, and configuration files.
-- **Python**: Core programming language for scripts and interface.
-- **Jinja2**: Templating engine for rendering prompt templates.
-- **YAML**: Format for writing prompts with structured data.
-- **GitHub**: Source code repository and version control.
+- **Python Modules**: Core functionality implementation
+- **Google Colab**: User interface and execution environment
+- **Google Drive**: Storage for modules, prompts, outputs, and configuration files
+- **Jinja2**: Templating engine for rendering prompt templates
+- **YAML**: Format for writing prompts with structured data
+- **GitHub**: Source code repository and version control
 
 ## Workflow
 
 1. **Setup**:
-   - User opens the Colab setup notebook.
-   - Runs cells to configure the environment and setup directories.
+   - User opens setup.ipynb
+   - Notebook imports setup.py to configure the environment
+   - Core modules are verified and initialized
 
-2. **Prompt Creation**:
-   - User creates or edits prompt files in Google Drive.
-   - Utilizes YAML with Jinja templates to define prompts.
+2. **Usage**:
+   - User opens main.ipynb
+   - Notebook imports necessary Python modules
+   - User interacts with the system through notebook interface
+   - Core functionality is handled by imported modules
 
-3. **API Interaction**:
-   - User selects a prompt and specifies parameters.
-   - The system renders the prompt template with provided values.
-   - Sends the prompt to the chosen LLM API.
-
-4. **Result Handling**:
-   - Receives the response from the LLM.
-   - Displays output within Colab.
-   - Optionally saves the response to Google Drive.
+3. **Development**:
+   - Core functionality is developed and maintained in Python modules
+   - Notebooks focus on user interface and interaction
+   - Modules can be updated independently of notebooks
 
 ## Considerations
 
