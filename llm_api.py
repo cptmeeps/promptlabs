@@ -116,68 +116,16 @@ class AnthropicProvider(LLMProvider):
     def parse_response(self, response: Any) -> str:
         return response.content[0].text
 
-class OpenAIProvider(LLMProvider):
-    """Placeholder implementation for OpenAI provider"""
-    def __init__(self, model: str = "gpt-4-turbo-preview", debug: bool = False):
-        super().__init__(debug=debug)
-        raise NotImplementedError("OpenAI provider implementation pending")
-
-    def convert_to_messages(self, prompt_dicts: List[Dict[str, Any]]) -> tuple[List[Dict[str, Any]], str]:
-        raise NotImplementedError("OpenAI provider implementation pending")
-
-    def generate(self, messages_and_system: tuple[List[Dict[str, Any]], str]) -> Any:
-        raise NotImplementedError("OpenAI provider implementation pending")
-
-    def parse_response(self, response: Any) -> str:
-        raise NotImplementedError("OpenAI provider implementation pending")
-
-class GeminiProvider(LLMProvider):
-    """Placeholder implementation for Gemini provider"""
-    def __init__(self, model: str = "gemini-pro", debug: bool = False):
-        super().__init__(debug=debug)
-        raise NotImplementedError("Gemini provider implementation pending")
-
-    def convert_to_messages(self, prompt_dicts: List[Dict[str, Any]]) -> tuple[List[Dict[str, Any]], str]:
-        raise NotImplementedError("Gemini provider implementation pending")
-
-    def generate(self, messages_and_system: tuple[List[Dict[str, Any]], str]) -> Any:
-        raise NotImplementedError("Gemini provider implementation pending")
-
-    def parse_response(self, response: Any) -> str:
-        raise NotImplementedError("Gemini provider implementation pending")
-
-class LLMAPIManager:
-    def __init__(self):
-        self.providers: Dict[str, LLMProvider] = {}
-
-    def register_provider(self, name: str, provider: LLMProvider):
-        """Register a new LLM provider"""
-        self.providers[name] = provider
-
-    def generate(self, provider_name: str, prompt_dicts: List[Dict[str, Any]]) -> str:
-        """Generate text using specified provider"""
-        if provider_name not in self.providers:
-            raise ValueError(f"Provider {provider_name} not registered")
-        
-        provider = self.providers[provider_name]
-        return provider.process_prompt(prompt_dicts)
-
 def main():
     print("\n=== Starting LLM API Test ===")
     
-    # Initialize the LLM API manager
-    print("\n1. Initializing LLM API Manager...")
-    llm_manager = LLMAPIManager()
-    print("✓ LLM API Manager initialized")
+    # Initialize Anthropic provider with debug mode enabled
+    print("\n1. Setting up Anthropic provider...")
+    provider = AnthropicProvider(debug=True)
+    print("✓ Anthropic provider initialized")
 
-    # Register Anthropic provider with debug mode enabled
-    print("\n2. Setting up Anthropic provider...")
-    anthropic_provider = AnthropicProvider(debug=True)
-    llm_manager.register_provider("anthropic", anthropic_provider)
-    print("✓ Anthropic provider registered")
-
-    # Example prompt dictionaries from PromptManager showing system message handling
-    print("\n3. Creating test prompt chain...")
+    # Example prompt dictionaries showing system message handling
+    print("\n2. Creating test prompt chain...")
     prompt_dicts = [
         {
             "role": "system",
@@ -197,9 +145,9 @@ def main():
         print(f"  Message {i+1}: [{msg['role']}] {msg['content']}")
 
     # Generate using Anthropic
-    print("\n4. Generating response from Anthropic...")
+    print("\n3. Generating response from Anthropic...")
     try:
-        response = llm_manager.generate("anthropic", prompt_dicts)
+        response = provider.process_prompt(prompt_dicts)
         print("\n=== Response ===")
         print(response)
         print("=== End Response ===")
