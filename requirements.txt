@@ -1,3 +1,12 @@
+# To install requirements:
+# Run: pip install -r requirements.txt
+
 jinja2
 pyyaml
 anthropic
+pandas
+google-api-python-client
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+
